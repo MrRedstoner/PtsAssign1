@@ -21,9 +21,9 @@ class MyTestCase(unittest.TestCase):
 
         obj0 = res()
         with self.assertRaises(AssertionError):
-            obj0 + (0, 1)
+            _ = obj0 + (0, 1)
         with self.assertRaises(AssertionError):
-            (0, 1) in obj0
+            _ = (0, 1) in obj0
 
 
 if __name__ == '__main__':
