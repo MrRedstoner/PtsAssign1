@@ -4,7 +4,7 @@
 
 ~~adding an element to the relation~~
 
-removing an element from the relation
+~~removing an element from the relation~~
 
 union of two relations
 
