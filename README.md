@@ -6,7 +6,7 @@
 
 ~~removing an element from the relation~~
 
-union of two relations
+~~union of two relations~~
 
 intersection of two relations
 

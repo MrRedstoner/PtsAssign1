@@ -16,15 +16,25 @@ class MyTestCase(unittest.TestCase):
         self.assertNotIn((1, 2), obj0)
 
         # double add an element
-        obj2 = (obj1 + (1, 3)) + (1, 2)
+        obj2 = ((obj1 + (1, 3)) + (1, 2)) + (2, 3)
         self.assertIn((1, 2), obj2)
         self.assertIn((1, 3), obj2)
+        self.assertIn((2, 3), obj2)
 
         obj3 = obj2 - (1, 2)
         self.assertNotIn((1, 2), obj3)
         self.assertIn((1, 3), obj3)
+        self.assertIn((2, 3), obj3)
         # check immutability
         self.assertIn((1, 2), obj2)
+
+        obj4 = obj3 | obj1
+        self.assertIn((1, 2), obj4)
+        self.assertIn((1, 3), obj4)
+        self.assertIn((2, 3), obj4)
+        # check immutability
+        self.assertNotIn((1, 2), obj3)
+        self.assertNotIn((1, 3), obj1)
 
     def test_exceptions(self):
         res = get_relation_class({1, 2, 3})
@@ -36,6 +46,9 @@ class MyTestCase(unittest.TestCase):
             _ = obj0 - (0, 1)
         with self.assertRaises(AssertionError):
             _ = (0, 1) in obj0
+        with self.assertRaises(AssertionError):
+            bad_obj = get_relation_class({1, 2, 3, 4})()
+            _ = obj0 | bad_obj
 
 
 if __name__ == '__main__':
