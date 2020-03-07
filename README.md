@@ -12,7 +12,7 @@
 
 subtraction of two relations
 
-inverse relation
+~~inverse relation~~
 
 composition of two relations
 

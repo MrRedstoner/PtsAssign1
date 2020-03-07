@@ -61,6 +61,15 @@ def get_relation_class(a: set) -> type:
 
         intersection = __and__
 
+        def __invert__(self) -> 'RelClass':
+            out = RelClass()
+            for first, seconds in self._relation.items():
+                for second in seconds:
+                    out._relation[second].add(first)
+            return out
+
+        invert = __invert__
+
         def __str__(self) -> str:
             return str(self._relation)
 
