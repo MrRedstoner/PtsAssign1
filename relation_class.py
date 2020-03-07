@@ -50,6 +50,17 @@ def get_relation_class(a: set) -> type:
 
         union = __or__
 
+        def __and__(self, other: 'RelClass') -> 'RelClass':
+            self._check_relation(other)
+            out = RelClass()
+            for first, seconds in self._relation.items():
+                out._relation[first] = seconds.copy()
+            for first in self._objects:
+                out._relation[first] &= other._relation[first]
+            return out
+
+        intersection = __and__
+
         def __str__(self) -> str:
             return str(self._relation)
 

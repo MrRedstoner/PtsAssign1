@@ -36,6 +36,16 @@ class MyTestCase(unittest.TestCase):
         self.assertNotIn((1, 2), obj3)
         self.assertNotIn((1, 3), obj1)
 
+        obj5 = obj3 & obj1
+        self.assertNotIn((1, 2), obj5)
+        self.assertNotIn((1, 3), obj5)
+        self.assertNotIn((2, 3), obj5)
+        # check immutability
+        self.assertIn((1, 2), obj1)
+        self.assertIn((1, 3), obj3)
+        self.assertIn((2, 3), obj3)
+
+
     def test_exceptions(self):
         res = get_relation_class({1, 2, 3})
 
@@ -49,6 +59,9 @@ class MyTestCase(unittest.TestCase):
         with self.assertRaises(AssertionError):
             bad_obj = get_relation_class({1, 2, 3, 4})()
             _ = obj0 | bad_obj
+        with self.assertRaises(AssertionError):
+            bad_obj = get_relation_class({1, 2, 3, 4})()
+            _ = obj0 & bad_obj
 
 
 if __name__ == '__main__':

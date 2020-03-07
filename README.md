@@ -8,7 +8,7 @@
 
 ~~union of two relations~~
 
-intersection of two relations
+~~intersection of two relations~~
 
 subtraction of two relations
 
