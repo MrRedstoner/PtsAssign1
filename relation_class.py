@@ -95,7 +95,7 @@ def get_relation_class(a: set) -> type:
             out = RelClass()
             for first, seconds in self._relation.items():
                 # noinspection PyProtectedMember
-                out._relation[first] = reduce(operator.or_, map(other._relation.get, seconds))
+                out._relation[first] = reduce(operator.or_, map(lambda second: other._relation[second], seconds))
             return out
 
         compose = __pow__
@@ -120,5 +120,23 @@ def get_relation_class(a: set) -> type:
 
         def is_transitive(self) -> bool:
             return all((first, third) in self for first, second in self.pairs() for third in self._relation[second])
+
+        def reflexive_transitive_closure(self) -> 'RelClass':
+            out = RelClass()
+            # add reflexive elements
+            for elem in self._objects:
+                out._relation[elem].add(elem)
+            while True:
+                out2 = out.union(out.compose(self))
+
+                if out == out2:
+                    break
+                out = out2
+            return out
+
+        def __eq__(self, other: 'RelClass') -> 'RelClass':
+            self._check_relation(other)
+            # noinspection PyProtectedMember
+            return all(self._relation[first] == other._relation[first] for first in self._objects)
 
     return RelClass

@@ -93,6 +93,19 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(True, obj4.is_transitive())
         self.assertEqual(False, obj10.is_transitive())
 
+        obj11 = obj10.reflexive_transitive_closure()
+        self.assertIn((1, 1), obj11)  # reflex
+        self.assertIn((1, 2), obj11)  # 1->2
+        self.assertIn((1, 3), obj11)  # 1->2->3
+        self.assertNotIn((2, 1), obj11)
+        self.assertIn((2, 2), obj11)  # reflex
+        self.assertIn((2, 3), obj11)  # 2->3
+        self.assertNotIn((3, 1), obj11)
+        self.assertNotIn((3, 2), obj11)
+        self.assertIn((3, 3), obj11)  # reflex
+        self.assertEqual(True, obj11.is_reflexive())
+        self.assertEqual(True, obj11.is_transitive())
+
     def test_exceptions(self):
         res = get_relation_class({1, 2, 3})
 

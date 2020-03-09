@@ -22,4 +22,4 @@
 
 ~~is the relation transitive~~
 
-reflexive-transitive closure
+~~reflexive-transitive closure~~
