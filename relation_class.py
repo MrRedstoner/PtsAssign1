@@ -86,6 +86,8 @@ def get_relation_class(a: set) -> type:
         invert = __invert__
 
         def __str__(self) -> str:
-            return str(self._relation)
+            return "{" + ', '.join(str(first) + ':' +
+                                   ("{" + ', '.join(str(second) for second in seconds) + "}")
+                                   for first, seconds in self._relation.items()) + "}"
 
     return RelClass
