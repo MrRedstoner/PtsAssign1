@@ -10,7 +10,7 @@
 
 ~~intersection of two relations~~
 
-subtraction of two relations
+~~subtraction of two relations~~
 
 ~~inverse relation~~
 
