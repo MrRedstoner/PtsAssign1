@@ -47,6 +47,7 @@ def get_relation_class(a: set) -> type:
             for first, seconds in self._relation.items():
                 out._relation[first] = seconds.copy()
             for first in self._objects:
+                # noinspection PyProtectedMember
                 out._relation[first] -= other._relation[first]
             return out
 
@@ -61,8 +62,9 @@ def get_relation_class(a: set) -> type:
             out = RelClass()
             for first, seconds in self._relation.items():
                 out._relation[first] = seconds.copy()
+            # noinspection PyProtectedMember
             for first, seconds in other._relation.items():
-                out._relation[first] |= seconds;
+                out._relation[first] |= seconds
             return out
 
         union = __or__
@@ -73,6 +75,7 @@ def get_relation_class(a: set) -> type:
             for first, seconds in self._relation.items():
                 out._relation[first] = seconds.copy()
             for first in self._objects:
+                # noinspection PyProtectedMember
                 out._relation[first] &= other._relation[first]
             return out
 
@@ -91,6 +94,7 @@ def get_relation_class(a: set) -> type:
             self._check_relation(other)
             out = RelClass()
             for first, seconds in self._relation.items():
+                # noinspection PyProtectedMember
                 out._relation[first] = reduce(operator.or_, map(other._relation.get, seconds))
             return out
 
