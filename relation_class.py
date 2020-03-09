@@ -1,4 +1,6 @@
+import operator
 from collections import defaultdict
+from functools import reduce
 
 
 def get_relation_class(a: set) -> type:
@@ -84,6 +86,15 @@ def get_relation_class(a: set) -> type:
             return out
 
         invert = __invert__
+
+        def __pow__(self, other: 'RelClass') -> 'RelClass':
+            self._check_relation(other)
+            out = RelClass()
+            for first, seconds in self._relation.items():
+                out._relation[first] = reduce(operator.or_, map(other._relation.get, seconds))
+            return out
+
+        compose = __pow__
 
         def __str__(self) -> str:
             return "{" + ', '.join(str(first) + ':' +

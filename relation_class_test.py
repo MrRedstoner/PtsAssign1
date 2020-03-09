@@ -64,6 +64,19 @@ class MyTestCase(unittest.TestCase):
         self.assertIn((1, 3), obj4)
         self.assertIn((2, 3), obj4)
 
+        obj8 = obj4.compose(obj6)
+        self.assertIn((1, 1), obj8)  # 1->2,2->1
+        self.assertIn((2, 2), obj8)  # 2->3,3->2
+        self.assertIn((1, 2), obj8)  # 1->3,3->2
+        self.assertIn((2, 1), obj8)  # 2->3,3->1
+        # check immutability
+        self.assertIn((2, 1), obj6)
+        self.assertIn((3, 1), obj6)
+        self.assertIn((3, 2), obj6)
+        self.assertIn((1, 2), obj4)
+        self.assertIn((1, 3), obj4)
+        self.assertIn((2, 3), obj4)
+
     def test_exceptions(self):
         res = get_relation_class({1, 2, 3})
 

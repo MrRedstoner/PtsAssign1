@@ -14,7 +14,7 @@
 
 ~~inverse relation~~
 
-composition of two relations
+~~composition of two relations~~
 
 is the relation reflexive
 
