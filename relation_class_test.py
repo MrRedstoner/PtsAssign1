@@ -77,6 +77,22 @@ class MyTestCase(unittest.TestCase):
         self.assertIn((1, 3), obj4)
         self.assertIn((2, 3), obj4)
 
+        obj9 = ((res() + (1, 1)) + (2, 2)) + (3, 3)
+        self.assertEqual(True, obj9.is_reflexive())
+        self.assertEqual(False, obj8.is_reflexive())
+        self.assertEqual(False, obj0.is_reflexive())
+
+        self.assertEqual(True, obj0.is_symmetric())
+        self.assertEqual(True, obj8.is_symmetric())
+        self.assertEqual(False, obj1.is_symmetric())
+        self.assertEqual(False, obj2.is_symmetric())
+
+        obj10 = (res() + (1, 2)) + (2, 3)
+        self.assertEqual(True, obj0.is_transitive())
+        self.assertEqual(True, obj8.is_transitive())
+        self.assertEqual(True, obj4.is_transitive())
+        self.assertEqual(False, obj10.is_transitive())
+
     def test_exceptions(self):
         res = get_relation_class({1, 2, 3})
 

@@ -16,10 +16,10 @@
 
 ~~composition of two relations~~
 
-is the relation reflexive
+~~is the relation reflexive~~
 
-is the relation symmetric
+~~is the relation symmetric~~
 
-is the relation transitive
+~~is the relation transitive~~
 
 reflexive-transitive closure

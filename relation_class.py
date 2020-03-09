@@ -105,4 +105,20 @@ def get_relation_class(a: set) -> type:
                                    ("{" + ', '.join(str(second) for second in seconds) + "}")
                                    for first, seconds in self._relation.items()) + "}"
 
+        def is_reflexive(self) -> bool:
+            return all(map(lambda x: (x, x) in self, self._objects))
+
+        def pairs(self):
+            # materialize the items to prevent errors when items are added by the default functionality
+            for first, seconds in list(self._relation.items()):
+                for second in seconds:
+                    # automatically a tuple
+                    yield first, second
+
+        def is_symmetric(self) -> bool:
+            return all((second, first) in self for first, second in self.pairs())
+
+        def is_transitive(self) -> bool:
+            return all((first, third) in self for first, second in self.pairs() for third in self._relation[second])
+
     return RelClass
