@@ -1,3 +1,4 @@
+from __future__ import annotations
 import operator
 from collections import defaultdict
 from functools import reduce
@@ -24,14 +25,14 @@ def get_relation_class(a: set) -> type:
             self._check_element(item)
             return item[1] in self._relation[item[0]]
 
-        def __add__(self, other: tuple) -> 'RelClass':
+        def __add__(self, other: tuple) -> RelClass:
             self._check_element(other)
             out = RelClass()
             out._relation = self._relation.copy()
             out._relation[other[0]] = {*self._relation[other[0]], other[1]}
             return out
 
-        def _sub_element(self, other: tuple) -> 'RelClass':
+        def _sub_element(self, other: tuple) -> RelClass:
             if other not in self:
                 return self
             self._check_element(other)
@@ -41,7 +42,7 @@ def get_relation_class(a: set) -> type:
             out._relation[other[0]].remove(other[1])
             return out
 
-        def _sub_rel_class(self, other: 'RelClass') -> 'RelClass':
+        def _sub_rel_class(self, other: RelClass) -> RelClass:
             self._check_relation(other)
             out = RelClass()
             for first, seconds in self._relation.items():
@@ -51,13 +52,13 @@ def get_relation_class(a: set) -> type:
                 out._relation[first] -= other._relation[first]
             return out
 
-        def __sub__(self, other) -> 'RelClass':
+        def __sub__(self, other: [tuple, RelClass]) -> RelClass:
             if type(other) == tuple:
                 return self._sub_element(other)
             else:
                 return self._sub_rel_class(other)
 
-        def __or__(self, other: 'RelClass') -> 'RelClass':
+        def __or__(self, other: RelClass) -> RelClass:
             self._check_relation(other)
             out = RelClass()
             for first, seconds in self._relation.items():
@@ -69,7 +70,7 @@ def get_relation_class(a: set) -> type:
 
         union = __or__
 
-        def __and__(self, other: 'RelClass') -> 'RelClass':
+        def __and__(self, other: RelClass) -> RelClass:
             self._check_relation(other)
             out = RelClass()
             for first, seconds in self._relation.items():
@@ -81,7 +82,7 @@ def get_relation_class(a: set) -> type:
 
         intersection = __and__
 
-        def __invert__(self) -> 'RelClass':
+        def __invert__(self) -> RelClass:
             out = RelClass()
             for first, seconds in self._relation.items():
                 for second in seconds:
@@ -90,7 +91,7 @@ def get_relation_class(a: set) -> type:
 
         invert = __invert__
 
-        def __pow__(self, other: 'RelClass') -> 'RelClass':
+        def __pow__(self, other: RelClass) -> RelClass:
             self._check_relation(other)
             out = RelClass()
             for first, seconds in self._relation.items():
@@ -121,7 +122,7 @@ def get_relation_class(a: set) -> type:
         def is_transitive(self) -> bool:
             return all((first, third) in self for first, second in self.pairs() for third in self._relation[second])
 
-        def reflexive_transitive_closure(self) -> 'RelClass':
+        def reflexive_transitive_closure(self) -> RelClass:
             out = RelClass()
             # add reflexive elements
             for elem in self._objects:
@@ -134,7 +135,7 @@ def get_relation_class(a: set) -> type:
                 out = out2
             return out
 
-        def __eq__(self, other: 'RelClass') -> 'RelClass':
+        def __eq__(self, other: RelClass) -> bool:
             self._check_relation(other)
             # noinspection PyProtectedMember
             return all(self._relation[first] == other._relation[first] for first in self._objects)
