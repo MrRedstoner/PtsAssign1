@@ -1,3 +1,7 @@
+# Note
+
+This is homework stuff. You likely don't want to actually use this anywhere.
+
 # TODO
 
 ~~does the relation contain given element~~
